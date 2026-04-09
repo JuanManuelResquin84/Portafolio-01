@@ -7,6 +7,8 @@ Tech Stack: Visual Studio Code | Python | Oracle SQL | Power BI | Data Storytell
 ## 📌 Visión General
 Este proyecto simula un escenario real de una empresa de consumo masivo (chocolates) que necesita migrar su operación de archivos planos (CSV) a un ecosistema de datos robusto. El objetivo no es solo la migración, sino la creación de una "Single Source of Truth" (Fuente Única de Verdad) que permita pasar del caos de los datos aislados a la toma de decisiones estratégicas.
 
+Link de los archivos CSV: https://www.kaggle.com/datasets/ssssws/chocolate-sales-dataset-2023-2024
+
 ## 🏗️ Arquitectura de la Solución
 La solución se basa en un flujo de datos integral (End-to-End) diseñado para transformar la facturación operativa en inteligencia de negocios.
 1. Extracción y Automatización (Capa de Ingesta - Python)
