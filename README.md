@@ -58,7 +58,19 @@ Este es el "Arquitecto" y "Dueño" de los datos. Es el usuario que utiliza el sc
 Responsabilidad: Crear la estructura (DDL) y cargar los datos limpios (DML).
 Permisos clave: CREATE TABLE, UNLIMITED QUOTA en el Tablespace.
 
-2. El Esquema de Consulta (c##analista01 = c##a01)
+![Tablero](imagenesp01/1.png)
+
+![Tablero](imagenesp01/2.png)
+
+![Tablero](imagenesp01/5.png)
+
+![Tablero](imagenesp01/6.png)
+
+![Tablero](imagenesp01/8.png)
+
+![Tablero](imagenesp01/9.png)
+
+3. El Esquema de Consulta (c##analista01 = c##a01)
 Este es el "Usuario Final" o la cuenta que conectaría herramientas como Power BI o Excel.
 Responsabilidad: Consumo de información y generación de reportes.
 Restricción de Seguridad: Solo tiene permisos de SELECT. No puede borrar datos, modificar precios ni alterar la estructura de las tablas, protegiendo la integridad de la base de datos.
@@ -96,3 +108,8 @@ Venta Global: 25,49 mill.
 Ganancia Global: 10,19 mill.
 Volumen: 3,00 mill. de unidades vendidas.
 3. Análisis Geográfico: El mapa confirma que tu limpieza de la tabla STORES permitió ubicar correctamente las ventas en ciudades como Toronto, París, Londres y Sydney.
+
+![Tablero](imagenesp01/11.png)
+
+![Tablero](imagenesp01/12.png)
+
