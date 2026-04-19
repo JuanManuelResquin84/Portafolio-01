@@ -1,32 +1,36 @@
-# Portafolio-01
-🚀 End-to-End Data Pipeline: Migración de CSV a Oracle SQL mediante un motor ETL en Python. Resuelve integridad referencial con Data Patching (Pandas) y asegura la calidad con validación Regex. Dashboard en Power BI con KPIs estratégicos y storytelling de impacto para retail de chocolates. 🍫
+# **Portafolio-01**
+**End-to-End Data Pipeline:** Migración de CSV a Oracle SQL mediante un motor ETL en Python. Resuelve integridad referencial con Data Patching (Pandas) y asegura la calidad con validación Regex. Dashboard en Power BI con KPIs estratégicos y storytelling de impacto para retail de chocolates.
 
-# 🍫 Proyecto: End-to-End Data Pipeline & Retail Analytics
-Tech Stack: Visual Studio Code | Python | Oracle SQL | Power BI | Data Storytelling 
+# **Proyecto:*** End-to-End Data Pipeline & Retail Analytics
+**Tech Stack:** Visual Studio Code | Python | Oracle SQL | Power BI | Data Storytelling 
 
-## 📌 Visión General
+## **Visión General**
 Este proyecto simula un escenario real de una empresa de consumo masivo (chocolates) que necesita migrar su operación de archivos planos (CSV) a un ecosistema de datos robusto. El objetivo no es solo la migración, sino la creación de una "Single Source of Truth" (Fuente Única de Verdad) que permita pasar del caos de los datos aislados a la toma de decisiones estratégicas.
 
-Link de los archivos CSV: https://www.kaggle.com/datasets/ssssws/chocolate-sales-dataset-2023-2024
+**Link de los archivos CSV:** https://www.kaggle.com/datasets/ssssws/chocolate-sales-dataset-2023-2024
 
-## 🏗️ Arquitectura de la Solución
+## **Arquitectura de la Solución**
 La solución se basa en un flujo de datos integral (End-to-End) diseñado para transformar la facturación operativa en inteligencia de negocios.
+
 1. Extracción y Automatización (Capa de Ingesta - Python)
 Para resolver la migración de la empresa retail, se desarrolló un motor ETL (Extract, Transform, Load) en Python que actúa como puente de confianza:
 Automatización: Scripts personalizados para la limpieza de datos aislados.
 Integridad: Validación de reglas de negocio y limpieza de nulos antes de la carga.
 Carga: Ingesta optimizada hacia el motor Oracle SQL.
-2. Almacenamiento y Modelado (Capa de Datos - Oracle SQL)
+
+3. Almacenamiento y Modelado (Capa de Datos - Oracle SQL)
 Los datos se estructuran bajo un modelo Star Schema (Esquema Estrella) en un entorno Oracle XE, garantizando máximo rendimiento:
 Tabla de Hechos: SALES (Núcleo de la operación con +50,000 registros).
 Tablas de Dimensiones: CUSTOMERS, PRODUCTS, STORES y CALENDAR.
 Optimización: Uso de llaves primarias y foráneas para garantizar la integridad referencial.
-3. Visualización y Estrategia (Capa de Analítica - Power BI)
+
+4. Visualización y Estrategia (Capa de Analítica - Power BI)
 El destino final es la toma de decisiones mediante Data Storytelling:
 Dashboards Interactivos: Seguimiento de ventas en tiempo real por región y producto.
 KPIs Críticos: Monitoreo de Ticket Promedio, Tasa de Retención de Clientes y Crecimiento Mensual.
 Análisis Predictivo: Identificación de tendencias de consumo estacionales (chocolate en festividades).
-4. Flujo de Transformación de IDs
+
+5. Flujo de Transformación de IDs
 Para garantizar un modelo relacional eficiente en Oracle, el script de Python realiza una limpieza profunda de los identificadores alfanuméricos, convirtiendo datos "sucios" en claves primarias numéricas optimizadas.
 
 | Entidad | Dato Original (CSV/Excel) | Proceso de Limpieza (Regex/Pandas) | Almacenamiento Final (Oracle) |
@@ -37,10 +41,11 @@ Para garantizar un modelo relacional eficiente en Oracle, el script de Python re
 | **Orden** | `0RD00000001` | `re.sub(r'\D', '', val)` | `1 (NUMBER)` |
 | **Fechas** | `2023-01-07` | `pd.to_datetime(val)` | `07/01/2023 (DATE)` |
 
-## 🏗️ Desafío Técnico: El Problema de los "Datos Huérfanos"
+## **Desafío Técnico: El Problema de los "Datos Huérfanos"**
 Durante la fase de EDA (Exploratory Data Analysis) en Python, se detectó una vulnerabilidad crítica: la tabla de ventas contenía transacciones de productos (P0000, P0201) que no figuraban en el catálogo maestro. Cargar estos datos directamente en Oracle habría provocado un fallo por violación de Integridad Referencial (Foreign Keys).
 Mi Solución: Auditoría Dinámica e Inyección de Datos de Rescate
 No opté por eliminar los registros (lo cual alteraría los reportes financieros), sino por una estrategia de curación de datos en tres etapas:
+
 1. Detección y Auditoría con Pandas
 Utilicé un left merge con indicadores para realizar una auditoría cruzada entre la tabla de hechos y las dimensiones.
 
@@ -52,7 +57,7 @@ Resultado: La dimensión de productos pasó de tener huecos informativos a una c
 3. Validación de Integridad Pre-Carga
 Desarrollé una función de auditoría integral (check_integrity) que actúa como un "Gatekeeper" (guardián). Antes de tocar el motor Oracle SQL, el script verifica todas las llaves foráneas (product_id, customer_id, store_id).
 
-## 🔐 Estrategia de Seguridad: Control de Acceso Granular
+## **Estrategia de Seguridad: Control de Acceso Granular**
 En lugar de trabajar con un usuario con superpoderes (como SYSTEM o SYS), la solución implementa un modelo de Segregación de Funciones (SoD) y el Principio de Menor Privilegio.
 
 1. El Esquema Propietario (c##portafolio01 = c##p01)
@@ -77,7 +82,7 @@ Este es el "Usuario Final" o la cuenta que conectaría herramientas como Power B
 Responsabilidad: Consumo de información y generación de reportes.
 Restricción de Seguridad: Solo tiene permisos de SELECT. No puede borrar datos, modificar precios ni alterar la estructura de las tablas, protegiendo la integridad de la base de datos.
 
-## 🛡️ Data Integrity & Relational Architecture (Arquitectura Relacional e Integridad de Datos)
+## **Data Integrity & Relational Architecture (Arquitectura Relacional e Integridad de Datos)**
 Para garantizar que el ecosistema de datos sea confiable (Single Source of Truth), implementé una arquitectura relacional estricta en Oracle SQL. A continuación, demuestro la integridad del modelo mediante consultas de auditoría:
 
 1. Validación de la Dimensión de Tiempo (Continuidad del Calendario)
@@ -101,14 +106,17 @@ JOIN c##p01.products p ON s.product_id = p.product_id
 GROUP BY p.product_name
 ORDER BY total_profit DESC;
 
-## 📈 De los Datos al Storytelling (Business Impact)
+## **De los Datos al Storytelling (Business Impact)**
 El proyecto culmina en Power BI, donde los datos se transforman en una narrativa accionable para el negocio:
 Referencias al Tablero de Power BI:
+
 1. Categoría "Sin Categoría": En tu gráfico de "Ventas totales por categoría", aparece una barra pequeña de 0,2 mill. etiquetada como "Sin Categoría". Esto demuestra visualmente el éxito de tu estrategia de "registros de recuperación" (Data Patching) que programaste en Python.
+
 2. KPIs de Negocio: Podés documentar que el tablero ya refleja métricas reales:
 Venta Global: 25,49 mill.
 Ganancia Global: 10,19 mill.
 Volumen: 3,00 mill. de unidades vendidas.
+
 3. Análisis Geográfico: El mapa confirma que tu limpieza de la tabla STORES permitió ubicar correctamente las ventas en ciudades como Toronto, París, Londres y Sydney.
 
 ![Tablero](imagenesp01/11.png)
